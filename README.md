@@ -37,28 +37,8 @@ and costs) are enforced in the schema.
 
 ## Project Structure
 
-CSCE548-MEALPREPTRACKER/
-│
-├── src/
-│   ├── DBUtil.java
-│   ├── Ingredient.java
-│   ├── IngredientDao.java
-│   ├── Recipe.java
-│   ├── RecipeDao.java
-│   ├── MealEntry.java
-│   ├── MealEntryDao.java
-│   ├── RecipeIngredient.java
-│   ├── RecipeIngredientDao.java
-│   └── Main.java
-│
-├── sql/
-│   ├── 01_schema.sql
-│   └── 02_test_data.sql
-│
-├── lib/
-│   └── mysql-connector-j-9.6.0.jar
-│
-└── README.md
+<img width="647" height="808" alt="image" src="https://github.com/user-attachments/assets/857e434e-b39a-45f2-a74c-4556dfacb917" />
+
 
 
 ---
