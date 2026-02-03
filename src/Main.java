@@ -124,8 +124,7 @@ public class Main {
             boolean deletedIngredient = ingredientDao.delete(chiaId);
             System.out.println("Deleted Ingredient? " + deletedIngredient);
 
-            System.out.println("\nDONE. Screenshots should show inserts, reads (including join), updates, and deletes.");
-
+            
         } catch (SQLException e) {
             System.err.println("SQL ERROR: " + e.getMessage());
             e.printStackTrace();
