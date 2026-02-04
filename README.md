@@ -30,14 +30,6 @@ and costs) are enforced in the schema.
 
 ---
 
-## Technologies Used
-- Java (JDK 21 – Amazon Corretto)
-- MySQL 8+
-- JDBC (MySQL Connector/J)
-- VS Code with Java Extension Pack
-
----
-
 ## Project Structure
 
 <img width="647" height="808" alt="image" src="https://github.com/user-attachments/assets/857e434e-b39a-45f2-a74c-4556dfacb917" />
