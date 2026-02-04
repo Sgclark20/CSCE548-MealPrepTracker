@@ -25,6 +25,9 @@ The database is named `meal_prep_tracker` and contains the following tables:
 Primary keys, foreign keys, and constraints (e.g., positive quantities, servings,
 and costs) are enforced in the schema.
 
+<img width="1525" height="987" alt="image" src="https://github.com/user-attachments/assets/a10c40d6-63e1-4cfb-a102-6d0e0efc9da1" />
+
+
 ---
 
 ## Technologies Used
