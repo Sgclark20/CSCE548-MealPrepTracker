@@ -1,5 +1,8 @@
 # CSCE 548 – Project 1: Meal Prep Tracker
 
+## Problem Statement:
+Meal prepping can be time-consuming and difficult to manage when tracking recipes, ingredients, portion sizes, and nutritional information. This project aims to make meal preparation easier by organizing meals, recipes, and ingredients in a structured database that allows users to track what they eat and how meals are prepared.
+
 ## Overview
 
 The application models a simple **meal prep tracking system**, allowing recipes,
