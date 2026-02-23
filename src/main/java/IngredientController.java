@@ -1,10 +1,19 @@
 import static spark.Spark.*;
 import com.google.gson.Gson;
 
+/*
+ * IngredientController
+ * REST Endpoints:
+ *  POST   /api/ingredients        -> Save (create)
+ *  PUT    /api/ingredients        -> Save (update)
+ *  GET    /api/ingredients/:id    -> GetById
+ *  GET    /api/ingredients        -> GetAll
+ *  DELETE /api/ingredients/:id    -> Delete
+ */
 public class IngredientController {
 
     private final BusinessManager bm;
-    private final Gson gson = new Gson();
+    private final Gson gson = JsonUtil.gson();
 
     public IngredientController(BusinessManager bm) {
         this.bm = bm;
@@ -12,7 +21,6 @@ public class IngredientController {
 
     public void registerRoutes() {
 
-        // Save (create or update)
         post("/api/ingredients", (req, res) -> {
             Ingredient ing = gson.fromJson(req.body(), Ingredient.class);
             bm.saveIngredient(ing);
@@ -27,7 +35,6 @@ public class IngredientController {
             return gson.toJson(ing);
         });
 
-        // GetById
         get("/api/ingredients/:id", (req, res) -> {
             int id = Integer.parseInt(req.params("id"));
             Ingredient ing = bm.getIngredientById(id);
@@ -35,10 +42,16 @@ public class IngredientController {
             return gson.toJson(ing);
         });
 
-        // GetAll
         get("/api/ingredients", (req, res) -> {
             res.type("application/json");
             return gson.toJson(bm.getAllIngredients());
+        });
+
+        delete("/api/ingredients/:id", (req, res) -> {
+            int id = Integer.parseInt(req.params("id"));
+            bm.deleteIngredient(id);
+            res.status(204);
+            return "";
         });
     }
 }

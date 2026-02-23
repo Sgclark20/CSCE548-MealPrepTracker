@@ -1,14 +1,33 @@
 import static spark.Spark.*;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
-
+/*
+ * MealEntryController
+ * REST Endpoints:
+ *  POST   /api/mealEntries        -> Save (create)
+ *  PUT    /api/mealEntries        -> Save (update)
+ *  GET    /api/mealEntries/:id    -> GetById
+ *  GET    /api/mealEntries        -> GetAll
+ *  DELETE /api/mealEntries/:id    -> Delete
+ *
+ * NOTE:
+ * MealEntry JSON uses "recipeId" instead of embedding a Recipe object:
+ * {
+ *   "id":0,
+ *   "mealDate":"YYYY-MM-DD",
+ *   "mealTime":"HH:MM:SS",
+ *   "mealType":"Lunch",
+ *   "servings":1.0,
+ *   "notes":"...",
+ *   "recipeId": 123
+ * }
+ */
 public class MealEntryController {
 
     private final BusinessManager bm;
-    private final Gson gson = new Gson();
+    private final Gson gson = JsonUtil.gson();
 
     public MealEntryController(BusinessManager bm) {
         this.bm = bm;
@@ -41,18 +60,25 @@ public class MealEntryController {
             res.type("application/json");
             return gson.toJson(bm.getAllMealEntries());
         });
+
+        delete("/api/mealEntries/:id", (req, res) -> {
+            int id = Integer.parseInt(req.params("id"));
+            bm.deleteMealEntry(id);
+            res.status(204);
+            return "";
+        });
     }
 
     /**
-     * Expected JSON for MealEntry save:
+     * Expected JSON:
      * {
-     *   "id": 0,
-     *   "mealDate": "2026-02-23",
-     *   "mealTime": "12:30",
-     *   "mealType": "Lunch",
-     *   "servings": 1.0,
-     *   "notes": "text",
-     *   "recipeId": 15
+     *   "id":0,
+     *   "mealDate":"YYYY-MM-DD",
+     *   "mealTime":"HH:MM:SS",
+     *   "mealType":"Lunch",
+     *   "servings":1.0,
+     *   "notes":"text",
+     *   "recipeId":123
      * }
      */
     private MealEntry parseMealEntry(String json) throws Exception {

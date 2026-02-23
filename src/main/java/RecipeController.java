@@ -1,10 +1,18 @@
 import static spark.Spark.*;
 import com.google.gson.Gson;
-
+/*
+ * RecipeController
+ * REST Endpoints:
+ *  POST   /api/recipes        -> Save (create)
+ *  PUT    /api/recipes        -> Save (update)
+ *  GET    /api/recipes/:id    -> GetById
+ *  GET    /api/recipes        -> GetAll
+ *  DELETE /api/recipes/:id    -> Delete
+ */
 public class RecipeController {
 
     private final BusinessManager bm;
-    private final Gson gson = new Gson();
+    private final Gson gson = JsonUtil.gson();
 
     public RecipeController(BusinessManager bm) {
         this.bm = bm;
@@ -36,6 +44,13 @@ public class RecipeController {
         get("/api/recipes", (req, res) -> {
             res.type("application/json");
             return gson.toJson(bm.getAllRecipes());
+        });
+
+        delete("/api/recipes/:id", (req, res) -> {
+            int id = Integer.parseInt(req.params("id"));
+            bm.deleteRecipe(id);
+            res.status(204);
+            return "";
         });
     }
 }

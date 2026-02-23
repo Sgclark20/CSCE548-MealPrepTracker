@@ -13,6 +13,7 @@ MealEntry.class
 RecipeIngredientController.class
 IngredientDao.class
 MealEntryDao.class
+JsonUtil.class
 RecipeIngredientDao.class
 RecipeDao.class
 RecipeIngredient.class
