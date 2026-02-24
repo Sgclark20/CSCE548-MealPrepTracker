@@ -1,4 +1,26 @@
-# CSCE 548 – Project 1: Meal Prep Tracker
+# CSCE 548 – Meal Prep Tracker
+
+## Poject 2:
+The services are hosted locally on my Windows 11 laptop using SparkJava.
+The API runs on port 8080.
+To start the service, I run:
+
+- mvn clean compile
+- mvn -q exec:java "-Dexec.mainClass=MptApiServer"
+
+Once running, the service is accessible at:
+
+http://localhost:8080
+
+The health endpoint is available at:
+
+http://localhost:8080/health
+
+Other links:
+- http://localhost:8080/api/ingredients
+- http://localhost:8080/api/recipes
+- http://localhost:8080/api/mealEntries
+- http://localhost:8080/api/recipeIngredients
 
 ## Problem Statement:
 Meal prepping can be time-consuming and difficult to manage when tracking recipes, ingredients, portion sizes, and nutritional information. This project aims to make meal preparation easier by organizing meals, recipes, and ingredients in a structured database that allows users to track what they eat and how meals are prepared and what it will cost.
