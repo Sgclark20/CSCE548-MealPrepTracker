@@ -5,6 +5,7 @@
 In first terminal 
 - mvn -q exec:java "-Dexec.mainClass=MptApiServer"
 - check http://localhost:8080/health look for the "OK"
+
 In Second terminal
 - Cd web-client
 - python -m http.server 5500
