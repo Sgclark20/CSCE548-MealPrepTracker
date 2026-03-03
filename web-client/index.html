@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>MPT API Client</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand">MPT API Client</div>
+    <div class="nav">
+      <a href="#" class="navlink">Home</a>
+      <a href="#" class="navlink">Privacy</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1>MPT API Client</h1>
+
+    <div class="card">
+      <div class="row">
+        <label class="label">API Base URL</label>
+        <input id="baseUrl" class="input grow" value="http://localhost:8080" />
+        <button class="btn primary" id="fetchAllBtn">Fetch All</button>
+        <button class="btn" id="clearBtn">Clear Tables</button>
+      </div>
+      <div class="hint">
+        Enter the base URL for your Web API (no trailing slash). Example: <code>http://localhost:8080</code>
+      </div>
+      <div id="status" class="status"></div>
+    </div>
+
+    <!-- INGREDIENTS -->
+    <h2>Ingredients</h2>
+    <div class="card">
+      <div class="grid2">
+        <div>
+          <h3>Save (POST/PUT)</h3>
+          <div class="form">
+            <input class="input" id="ing_id" placeholder="id (0=new)">
+            <input class="input" id="ing_name" placeholder="name">
+            <input class="input" id="ing_unit" placeholder="unit">
+            <input class="input" id="ing_cost" placeholder="costPerUnit">
+            <input class="input" id="ing_cal" placeholder="caloriesPerUnit">
+            <input class="input" id="ing_pro" placeholder="proteinPerUnit">
+            <input class="input" id="ing_carbs" placeholder="carbsPerUnit">
+            <input class="input" id="ing_fat" placeholder="fatPerUnit">
+            <button class="btn primary" id="ing_save">Save Ingredient</button>
+          </div>
+
+          <h3>GetById</h3>
+          <div class="row">
+            <input class="input" id="ing_get_id" placeholder="id">
+            <button class="btn" id="ing_get">Get</button>
+          </div>
+
+          <h3>Get Subset (search)</h3>
+          <div class="row">
+            <input class="input" id="ing_search" placeholder="name contains...">
+            <button class="btn" id="ing_search_btn">Search</button>
+          </div>
+
+          <h3>Delete</h3>
+          <div class="row">
+            <input class="input" id="ing_del_id" placeholder="id">
+            <button class="btn danger" id="ing_del">Delete</button>
+          </div>
+        </div>
+
+        <div>
+          <h3>Table</h3>
+          <table class="table" id="ingredientsTable"></table>
+        </div>
+      </div>
+    </div>
+
+    <!-- RECIPES -->
+    <h2>Recipes</h2>
+    <div class="card">
+      <div class="grid2">
+        <div>
+          <h3>Save (POST/PUT)</h3>
+          <div class="form">
+            <input class="input" id="rec_id" placeholder="id (0=new)">
+            <input class="input" id="rec_name" placeholder="name">
+            <input class="input" id="rec_inst" placeholder="instructions">
+            <button class="btn primary" id="rec_save">Save Recipe</button>
+          </div>
+
+          <h3>GetById</h3>
+          <div class="row">
+            <input class="input" id="rec_get_id" placeholder="id">
+            <button class="btn" id="rec_get">Get</button>
+          </div>
+
+          <h3>Get Subset (search)</h3>
+          <div class="row">
+            <input class="input" id="rec_search" placeholder="name contains...">
+            <button class="btn" id="rec_search_btn">Search</button>
+          </div>
+
+          <h3>Delete</h3>
+          <div class="row">
+            <input class="input" id="rec_del_id" placeholder="id">
+            <button class="btn danger" id="rec_del">Delete</button>
+          </div>
+        </div>
+
+        <div>
+          <h3>Table</h3>
+          <table class="table" id="recipesTable"></table>
+        </div>
+      </div>
+    </div>
+
+    <!-- MEAL ENTRIES -->
+    <h2>MealEntries</h2>
+    <div class="card">
+      <div class="grid2">
+        <div>
+          <h3>Save (POST/PUT)</h3>
+          <div class="form">
+            <input class="input" id="me_id" placeholder="id (0=new)">
+            <input class="input" id="me_date" placeholder="mealDate (YYYY-MM-DD)">
+            <input class="input" id="me_time" placeholder="mealTime (HH:MM:SS)">
+            <input class="input" id="me_type" placeholder="mealType">
+            <input class="input" id="me_serv" placeholder="servings">
+            <input class="input" id="me_notes" placeholder="notes">
+            <input class="input" id="me_recipeId" placeholder="recipeId">
+            <button class="btn primary" id="me_save">Save MealEntry</button>
+          </div>
+
+          <h3>GetById</h3>
+          <div class="row">
+            <input class="input" id="me_get_id" placeholder="id">
+            <button class="btn" id="me_get">Get</button>
+          </div>
+
+          <h3>Get Subset (date range)</h3>
+          <div class="row">
+            <input class="input" id="me_from" placeholder="from YYYY-MM-DD">
+            <input class="input" id="me_to" placeholder="to YYYY-MM-DD">
+            <button class="btn" id="me_range_btn">Fetch Range</button>
+          </div>
+
+          <h3>Delete</h3>
+          <div class="row">
+            <input class="input" id="me_del_id" placeholder="id">
+            <button class="btn danger" id="me_del">Delete</button>
+          </div>
+        </div>
+
+        <div>
+          <h3>Table</h3>
+          <table class="table" id="mealEntriesTable"></table>
+        </div>
+      </div>
+    </div>
+
+    <!-- RECIPE INGREDIENTS -->
+    <h2>RecipeIngredients</h2>
+    <div class="card">
+      <div class="grid2">
+        <div>
+          <h3>Save (POST/PUT)</h3>
+          <div class="form">
+            <input class="input" id="ri_recipeId" placeholder="recipeId">
+            <input class="input" id="ri_ingredientId" placeholder="ingredientId">
+            <input class="input" id="ri_qty" placeholder="quantity">
+            <button class="btn primary" id="ri_save">Save RecipeIngredient</button>
+          </div>
+
+          <h3>GetById (composite key)</h3>
+          <div class="row">
+            <input class="input" id="ri_get_recipeId" placeholder="recipeId">
+            <input class="input" id="ri_get_ingredientId" placeholder="ingredientId">
+            <button class="btn" id="ri_get">Get</button>
+          </div>
+
+          <h3>Get Subset (by recipeId)</h3>
+          <div class="row">
+            <input class="input" id="ri_by_recipeId" placeholder="recipeId">
+            <button class="btn" id="ri_by_recipe_btn">Fetch</button>
+          </div>
+
+          <h3>Delete (composite key)</h3>
+          <div class="row">
+            <input class="input" id="ri_del_recipeId" placeholder="recipeId">
+            <input class="input" id="ri_del_ingredientId" placeholder="ingredientId">
+            <button class="btn danger" id="ri_del">Delete</button>
+          </div>
+        </div>
+
+        <div>
+          <h3>Table</h3>
+          <table class="table" id="recipeIngredientsTable"></table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
