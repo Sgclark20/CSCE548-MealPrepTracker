@@ -12,6 +12,7 @@ Main.class
 MealEntry.class
 RecipeIngredientController.class
 IngredientDao.class
+SubsetRoutes.class
 MealEntryDao.class
 JsonUtil.class
 RecipeIngredientDao.class

@@ -3,202 +3,312 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>MPT API Client</title>
+  <title>MealPrep Tracker Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="topbar">
-    <div class="brand">MPT API Client</div>
-    <div class="nav">
-      <a href="#" class="navlink">Home</a>
-      <a href="#" class="navlink">Privacy</a>
-    </div>
-  </div>
-
-  <div class="container">
-    <h1>MPT API Client</h1>
-
-    <div class="card">
-      <div class="row">
-        <label class="label">API Base URL</label>
-        <input id="baseUrl" class="input grow" value="http://localhost:8080" />
-        <button class="btn primary" id="fetchAllBtn">Fetch All</button>
-        <button class="btn" id="clearBtn">Clear Tables</button>
-      </div>
-      <div class="hint">
-        Enter the base URL for your Web API (no trailing slash). Example: <code>http://localhost:8080</code>
-      </div>
-      <div id="status" class="status"></div>
-    </div>
-
-    <!-- INGREDIENTS -->
-    <h2>Ingredients</h2>
-    <div class="card">
-      <div class="grid2">
+  <div class="page-shell">
+    <header class="topbar">
+      <div class="brand-wrap">
+        <div class="brand-badge">🍽️</div>
         <div>
-          <h3>Save (POST/PUT)</h3>
-          <div class="form">
-            <input class="input" id="ing_id" placeholder="id (0=new)">
-            <input class="input" id="ing_name" placeholder="name">
-            <input class="input" id="ing_unit" placeholder="unit">
-            <input class="input" id="ing_cost" placeholder="costPerUnit">
-            <input class="input" id="ing_cal" placeholder="caloriesPerUnit">
-            <input class="input" id="ing_pro" placeholder="proteinPerUnit">
-            <input class="input" id="ing_carbs" placeholder="carbsPerUnit">
-            <input class="input" id="ing_fat" placeholder="fatPerUnit">
-            <button class="btn primary" id="ing_save">Save Ingredient</button>
-          </div>
-
-          <h3>GetById</h3>
-          <div class="row">
-            <input class="input" id="ing_get_id" placeholder="id">
-            <button class="btn" id="ing_get">Get</button>
-          </div>
-
-          <h3>Get Subset (search)</h3>
-          <div class="row">
-            <input class="input" id="ing_search" placeholder="name contains...">
-            <button class="btn" id="ing_search_btn">Search</button>
-          </div>
-
-          <h3>Delete</h3>
-          <div class="row">
-            <input class="input" id="ing_del_id" placeholder="id">
-            <button class="btn danger" id="ing_del">Delete</button>
-          </div>
-        </div>
-
-        <div>
-          <h3>Table</h3>
-          <table class="table" id="ingredientsTable"></table>
+          <div class="brand">MealPrep Tracker</div>
+          <div class="brand-subtitle">Interactive API dashboard</div>
         </div>
       </div>
-    </div>
+      <nav class="nav">
+        <a href="#ingredients-section" class="navlink">Ingredients</a>
+        <a href="#recipes-section" class="navlink">Recipes</a>
+        <a href="#meals-section" class="navlink">Meal Entries</a>
+        <a href="#recipe-ingredients-section" class="navlink">Recipe Links</a>
+      </nav>
+    </header>
 
-    <!-- RECIPES -->
-    <h2>Recipes</h2>
-    <div class="card">
-      <div class="grid2">
-        <div>
-          <h3>Save (POST/PUT)</h3>
-          <div class="form">
-            <input class="input" id="rec_id" placeholder="id (0=new)">
-            <input class="input" id="rec_name" placeholder="name">
-            <input class="input" id="rec_inst" placeholder="instructions">
-            <button class="btn primary" id="rec_save">Save Recipe</button>
+    <main class="container">
+      <section class="card control-card">
+        <div class="section-heading compact">
+          <div>
+            <span class="section-kicker">Connection</span>
+            <h2>API Control Center</h2>
           </div>
-
-          <h3>GetById</h3>
-          <div class="row">
-            <input class="input" id="rec_get_id" placeholder="id">
-            <button class="btn" id="rec_get">Get</button>
-          </div>
-
-          <h3>Get Subset (search)</h3>
-          <div class="row">
-            <input class="input" id="rec_search" placeholder="name contains...">
-            <button class="btn" id="rec_search_btn">Search</button>
-          </div>
-
-          <h3>Delete</h3>
-          <div class="row">
-            <input class="input" id="rec_del_id" placeholder="id">
-            <button class="btn danger" id="rec_del">Delete</button>
-          </div>
+          <p>Point the dashboard at your running backend, then fetch data across all tables.</p>
         </div>
 
-        <div>
-          <h3>Table</h3>
-          <table class="table" id="recipesTable"></table>
-        </div>
-      </div>
-    </div>
-
-    <!-- MEAL ENTRIES -->
-    <h2>MealEntries</h2>
-    <div class="card">
-      <div class="grid2">
-        <div>
-          <h3>Save (POST/PUT)</h3>
-          <div class="form">
-            <input class="input" id="me_id" placeholder="id (0=new)">
-            <input class="input" id="me_date" placeholder="mealDate (YYYY-MM-DD)">
-            <input class="input" id="me_time" placeholder="mealTime (HH:MM:SS)">
-            <input class="input" id="me_type" placeholder="mealType">
-            <input class="input" id="me_serv" placeholder="servings">
-            <input class="input" id="me_notes" placeholder="notes">
-            <input class="input" id="me_recipeId" placeholder="recipeId">
-            <button class="btn primary" id="me_save">Save MealEntry</button>
-          </div>
-
-          <h3>GetById</h3>
-          <div class="row">
-            <input class="input" id="me_get_id" placeholder="id">
-            <button class="btn" id="me_get">Get</button>
-          </div>
-
-          <h3>Get Subset (date range)</h3>
-          <div class="row">
-            <input class="input" id="me_from" placeholder="from YYYY-MM-DD">
-            <input class="input" id="me_to" placeholder="to YYYY-MM-DD">
-            <button class="btn" id="me_range_btn">Fetch Range</button>
-          </div>
-
-          <h3>Delete</h3>
-          <div class="row">
-            <input class="input" id="me_del_id" placeholder="id">
-            <button class="btn danger" id="me_del">Delete</button>
-          </div>
+        <div class="row toolbar-row">
+          <label class="label" for="baseUrl">API Base URL</label>
+          <input id="baseUrl" class="input grow" value="http://localhost:8080" />
+          <button class="btn primary" id="fetchAllBtn">Fetch All</button>
+          <button class="btn ghost" id="clearBtn">Clear Tables</button>
         </div>
 
-        <div>
-          <h3>Table</h3>
-          <table class="table" id="mealEntriesTable"></table>
-        </div>
-      </div>
-    </div>
-
-    <!-- RECIPE INGREDIENTS -->
-    <h2>RecipeIngredients</h2>
-    <div class="card">
-      <div class="grid2">
-        <div>
-          <h3>Save (POST/PUT)</h3>
-          <div class="form">
-            <input class="input" id="ri_recipeId" placeholder="recipeId">
-            <input class="input" id="ri_ingredientId" placeholder="ingredientId">
-            <input class="input" id="ri_qty" placeholder="quantity">
-            <button class="btn primary" id="ri_save">Save RecipeIngredient</button>
-          </div>
-
-          <h3>GetById (composite key)</h3>
-          <div class="row">
-            <input class="input" id="ri_get_recipeId" placeholder="recipeId">
-            <input class="input" id="ri_get_ingredientId" placeholder="ingredientId">
-            <button class="btn" id="ri_get">Get</button>
-          </div>
-
-          <h3>Get Subset (by recipeId)</h3>
-          <div class="row">
-            <input class="input" id="ri_by_recipeId" placeholder="recipeId">
-            <button class="btn" id="ri_by_recipe_btn">Fetch</button>
-          </div>
-
-          <h3>Delete (composite key)</h3>
-          <div class="row">
-            <input class="input" id="ri_del_recipeId" placeholder="recipeId">
-            <input class="input" id="ri_del_ingredientId" placeholder="ingredientId">
-            <button class="btn danger" id="ri_del">Delete</button>
+        <div class="hint-panel">
+          <span class="hint-icon">💡</span>
+          <div>
+            Enter the base URL for your Web API with no trailing slash. Example: <code>http://localhost:8080</code>
           </div>
         </div>
+        <div id="status" class="status"></div>
+      </section>
 
-        <div>
-          <h3>Table</h3>
-          <table class="table" id="recipeIngredientsTable"></table>
+      <section class="entity-section" id="ingredients-section">
+        <div class="section-heading">
+          <div>
+            <span class="section-kicker">Inventory</span>
+            <h2>🥬 Ingredients</h2>
+          </div>
+          <p>Manage nutrition data, units, and pricing for each ingredient in your meal prep catalog.</p>
         </div>
-      </div>
-    </div>
+        <div class="card entity-card">
+          <div class="grid2">
+            <div class="panel action-panel">
+              <div class="action-group">
+                <h3>Save Ingredient</h3>
+                <p class="group-text">Use id = 0 to create a new ingredient or enter an existing id to update it.</p>
+                <div class="form">
+                  <input class="input" id="ing_id" placeholder="id (0=new)">
+                  <input class="input" id="ing_name" placeholder="name">
+                  <input class="input" id="ing_unit" placeholder="unit">
+                  <input class="input" id="ing_cost" placeholder="costPerUnit">
+                  <input class="input" id="ing_cal" placeholder="caloriesPerUnit">
+                  <input class="input" id="ing_pro" placeholder="proteinPerUnit">
+                  <input class="input" id="ing_carbs" placeholder="carbsPerUnit">
+                  <input class="input" id="ing_fat" placeholder="fatPerUnit">
+                  <button class="btn primary" id="ing_save">Save Ingredient</button>
+                </div>
+              </div>
 
+              <div class="action-group compact-group">
+                <h3>Lookup / Search / Delete</h3>
+                <div class="stack">
+                  <div>
+                    <label class="small-label">Get by ID</label>
+                    <div class="row">
+                      <input class="input" id="ing_get_id" placeholder="id">
+                      <button class="btn" id="ing_get">Get</button>
+                    </div>
+                  </div>
+                  <div>
+                    <label class="small-label">Search by name</label>
+                    <div class="row">
+                      <input class="input" id="ing_search" placeholder="name contains...">
+                      <button class="btn" id="ing_search_btn">Search</button>
+                    </div>
+                  </div>
+                  <div>
+                    <label class="small-label">Delete by ID</label>
+                    <div class="row">
+                      <input class="input" id="ing_del_id" placeholder="id">
+                      <button class="btn danger" id="ing_del">Delete</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel table-panel">
+              <div class="table-header">
+                <h3>Ingredient Table</h3>
+                <span class="table-chip">Live results</span>
+              </div>
+              <table class="table" id="ingredientsTable"></table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="entity-section" id="recipes-section">
+        <div class="section-heading">
+          <div>
+            <span class="section-kicker">Planning</span>
+            <h2>📘 Recipes</h2>
+          </div>
+          <p>Store recipe names and instructions so each meal entry connects back to a real prep plan.</p>
+        </div>
+        <div class="card entity-card">
+          <div class="grid2">
+            <div class="panel action-panel">
+              <div class="action-group">
+                <h3>Save Recipe</h3>
+                <p class="group-text">Create a new recipe or update an existing one using the same form.</p>
+                <div class="form">
+                  <input class="input" id="rec_id" placeholder="id (0=new)">
+                  <input class="input" id="rec_name" placeholder="name">
+                  <input class="input" id="rec_inst" placeholder="instructions">
+                  <button class="btn primary" id="rec_save">Save Recipe</button>
+                </div>
+              </div>
+
+              <div class="action-group compact-group">
+                <h3>Lookup / Search / Delete</h3>
+                <div class="stack">
+                  <div>
+                    <label class="small-label">Get by ID</label>
+                    <div class="row">
+                      <input class="input" id="rec_get_id" placeholder="id">
+                      <button class="btn" id="rec_get">Get</button>
+                    </div>
+                  </div>
+                  <div>
+                    <label class="small-label">Search by name</label>
+                    <div class="row">
+                      <input class="input" id="rec_search" placeholder="name contains...">
+                      <button class="btn" id="rec_search_btn">Search</button>
+                    </div>
+                  </div>
+                  <div>
+                    <label class="small-label">Delete by ID</label>
+                    <div class="row">
+                      <input class="input" id="rec_del_id" placeholder="id">
+                      <button class="btn danger" id="rec_del">Delete</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel table-panel">
+              <div class="table-header">
+                <h3>Recipe Table</h3>
+                <span class="table-chip">Live results</span>
+              </div>
+              <table class="table" id="recipesTable"></table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="entity-section" id="meals-section">
+        <div class="section-heading">
+          <div>
+            <span class="section-kicker">Tracking</span>
+            <h2>⏰ Meal Entries</h2>
+          </div>
+          <p>Log when meals happen, what type they are, how many servings were eaten, and any notes.</p>
+        </div>
+        <div class="card entity-card">
+          <div class="grid2">
+            <div class="panel action-panel">
+              <div class="action-group">
+                <h3>Save Meal Entry</h3>
+                <p class="group-text">Use the recipe id field to connect each meal entry to a recipe record.</p>
+                <div class="form">
+                  <input class="input" id="me_id" placeholder="id (0=new)">
+                  <input class="input" id="me_date" placeholder="mealDate (YYYY-MM-DD)">
+                  <input class="input" id="me_time" placeholder="mealTime (HH:MM:SS)">
+                  <input class="input" id="me_type" placeholder="mealType">
+                  <input class="input" id="me_serv" placeholder="servings">
+                  <input class="input" id="me_notes" placeholder="notes">
+                  <input class="input" id="me_recipeId" placeholder="recipeId">
+                  <button class="btn primary" id="me_save">Save Meal Entry</button>
+                </div>
+              </div>
+
+              <div class="action-group compact-group">
+                <h3>Lookup / Filter / Delete</h3>
+                <div class="stack">
+                  <div>
+                    <label class="small-label">Get by ID</label>
+                    <div class="row">
+                      <input class="input" id="me_get_id" placeholder="id">
+                      <button class="btn" id="me_get">Get</button>
+                    </div>
+                  </div>
+                  <div>
+                    <label class="small-label">Fetch by date range</label>
+                    <div class="row">
+                      <input class="input" id="me_from" placeholder="from YYYY-MM-DD">
+                      <input class="input" id="me_to" placeholder="to YYYY-MM-DD">
+                      <button class="btn" id="me_range_btn">Fetch Range</button>
+                    </div>
+                  </div>
+                  <div>
+                    <label class="small-label">Delete by ID</label>
+                    <div class="row">
+                      <input class="input" id="me_del_id" placeholder="id">
+                      <button class="btn danger" id="me_del">Delete</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel table-panel">
+              <div class="table-header">
+                <h3>Meal Entry Table</h3>
+                <span class="table-chip">Live results</span>
+              </div>
+              <table class="table" id="mealEntriesTable"></table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="entity-section" id="recipe-ingredients-section">
+        <div class="section-heading">
+          <div>
+            <span class="section-kicker">Mapping</span>
+            <h2>🔗 Recipe Ingredients</h2>
+          </div>
+          <p>Connect ingredients to recipes with quantities so your project shows the many-to-many relationship clearly.</p>
+        </div>
+        <div class="card entity-card">
+          <div class="grid2">
+            <div class="panel action-panel">
+              <div class="action-group">
+                <h3>Save Recipe Ingredient</h3>
+                <p class="group-text">This form uses the recipe and ingredient ids together as the relationship key.</p>
+                <div class="form">
+                  <input class="input" id="ri_recipeId" placeholder="recipeId">
+                  <input class="input" id="ri_ingredientId" placeholder="ingredientId">
+                  <input class="input" id="ri_qty" placeholder="quantity">
+                  <button class="btn primary" id="ri_save">Save Recipe Ingredient</button>
+                </div>
+              </div>
+
+              <div class="action-group compact-group">
+                <h3>Lookup / Filter / Delete</h3>
+                <div class="stack">
+                  <div>
+                    <label class="small-label">Get by composite key</label>
+                    <div class="row">
+                      <input class="input" id="ri_get_recipeId" placeholder="recipeId">
+                      <input class="input" id="ri_get_ingredientId" placeholder="ingredientId">
+                      <button class="btn" id="ri_get">Get</button>
+                    </div>
+                  </div>
+                  <div>
+                    <label class="small-label">Fetch by recipe id</label>
+                    <div class="row">
+                      <input class="input" id="ri_by_recipeId" placeholder="recipeId">
+                      <button class="btn" id="ri_by_recipe_btn">Fetch</button>
+                    </div>
+                  </div>
+                  <div>
+                    <label class="small-label">Delete by composite key</label>
+                    <div class="row">
+                      <input class="input" id="ri_del_recipeId" placeholder="recipeId">
+                      <input class="input" id="ri_del_ingredientId" placeholder="ingredientId">
+                      <button class="btn danger" id="ri_del">Delete</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel table-panel">
+              <div class="table-header">
+                <h3>Recipe Ingredient Table</h3>
+                <span class="table-chip">Live results</span>
+              </div>
+              <table class="table" id="recipeIngredientsTable"></table>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   </div>
 
   <script src="app.js"></script>
