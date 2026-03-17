@@ -1,6 +1,6 @@
 # CSCE 548 – Meal Prep Tracker
 ## Project 4:
-Once Github Repo zip has been downloaded and opened in a IDE follow the deployment steps below
+Once Github Repo zip has been downloaded and opened in a IDE ( I recommend VS Code) follow the deployment steps below
 #### Build and Run the Back End
 Open first terminal **cd into project root**, run:
 - mvn clean compile
