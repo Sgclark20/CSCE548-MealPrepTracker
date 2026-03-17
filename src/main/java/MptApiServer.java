@@ -84,11 +84,11 @@ public class MptApiServer {
         BusinessManager bm = new BusinessManager();
 
         // Register REST controllers
+        new SubsetRoutes(bm).registerRoutes();
         new IngredientController(bm).registerRoutes();
         new RecipeController(bm).registerRoutes();
         new MealEntryController(bm).registerRoutes();
         new RecipeIngredientController(bm).registerRoutes();
-        new SubsetRoutes(bm).registerRoutes();
 
         System.out.println("========================================");
         System.out.println(" MPT API running on http://localhost:8080");
