@@ -1,4 +1,20 @@
 # CSCE 548 – Meal Prep Tracker
+## Project 4:
+Once Github Repo zip has been downloaded and opened in a IDE follow the deployment steps below
+#### Build and Run the Back End
+Open first terminal **cd into project root**, run:
+- mvn clean compile
+- mvn -q exec:java "-Dexec.mainClass=MptApiServer"
+
+How to verify success: Open http://localhost:8080/health in a browser. A successful launch should return OK.
+#### Run the Front End
+Open a second terminal **cd into project root**, then run:
+- cd web-client
+- python -m http.server 5500
+
+If python does not work, use python3 -m http.server 5500
+Open the client at: http://localhost:5500/
+
 
 ## Project 3:
 
